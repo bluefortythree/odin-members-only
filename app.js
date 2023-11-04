@@ -2,7 +2,7 @@ require('dotenv').config()
 require('express-async-errors')
 const mongoose = require('mongoose')
 const express = require('express')
-// const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 
 
 const notFoundMiddleware = require('./middleware/not-found')
@@ -14,15 +14,17 @@ app.set('view engine', 'pug')
 const indexRouter = require('./routes/index')
 // const authenticateRouter = require('./routes/authenticate')
 const homeRouter = require('./routes/home')
+const logoutRouter = require('./routes/logout')
 
 app.use(express.json())
 // app.use(express.static('./public'))
 app.use(express.urlencoded({ extended: true }))
-// app.use(cookieParser())
+app.use(cookieParser())
 
 app.use('/', indexRouter);
 // app.use('/', authenticateRouter)
 app.use('/home', authMiddleware, homeRouter)
+app.use('/logout', authMiddleware, logoutRouter)
 
 app.use(notFoundMiddleware)
 
