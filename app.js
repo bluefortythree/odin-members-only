@@ -3,28 +3,34 @@ require('express-async-errors')
 const mongoose = require('mongoose')
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const passport = require('passport')
+const LocalStrategy = require("passport-local").Strategy;
+const flash = require('express-flash')
+const session = require('express-session')
 
+const User = require('./models/User')
 
 const notFoundMiddleware = require('./middleware/not-found')
 const authMiddleware = require('./middleware/auth')
+const messagesMiddleware = require('./middleware/messages')
 
 const app = express();
 app.set('view engine', 'pug')
 
-const indexRouter = require('./routes/index')
-// const authenticateRouter = require('./routes/authenticate')
 const homeRouter = require('./routes/home')
-const logoutRouter = require('./routes/logout')
+const indexRouter = require('./routes/index')
+const membershipRouter = require('./routes/membership')
+const messageRouter = require('./routes/message')
 
 app.use(express.json())
 // app.use(express.static('./public'))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/', indexRouter);
-// app.use('/', authenticateRouter)
-app.use('/home', authMiddleware, homeRouter)
-app.use('/logout', authMiddleware, logoutRouter)
+app.use('/home', authMiddleware, messagesMiddleware, homeRouter)
+app.use('/', indexRouter)
+app.use('/membership', authMiddleware, membershipRouter)
+app.use('/messages', messagesMiddleware, messageRouter)
 
 app.use(notFoundMiddleware)
 

@@ -2,3 +2,9 @@ extends layout
 
 block content 
     div welcome to the website
+    if cookie 
+        div #{cookie}
+        a(href="messages/new") 
+            button Create new post
+    else 
+        div no user logged in

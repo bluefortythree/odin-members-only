@@ -14,8 +14,7 @@ const MessageSchema = new mongoose.Schema({
         maxlength: 500,
     },
     author: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: [true, 'Please provide user']
     }
 }, {timestamps: true})
