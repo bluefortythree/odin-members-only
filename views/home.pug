@@ -2,8 +2,20 @@ extends layout
 
 block content 
     div welcome to the website
+    br
     if cookie 
-        div #{cookie}
+        for message of allMessages
+            div #{message.title}
+            div #{message.text}
+            br
+            if (isMember === 'member' || isMember === 'admin')
+                div #{message.authorName}
+                div #{message.createdAt}
+                if (isMember === 'admin')
+                    a(href=`/messages/${message.id}`) 
+                        button View
+                br
+                br
         a(href="messages/new") 
             button Create new post
     else 

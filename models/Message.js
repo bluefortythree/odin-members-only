@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {DateTime} = require('luxon')
 
 const MessageSchema = new mongoose.Schema({
     title: {
@@ -16,7 +17,15 @@ const MessageSchema = new mongoose.Schema({
     author: {
         type: String,
         required: [true, 'Please provide user']
+    }, 
+    authorName: {
+        type: String,
+        required: [true, 'Please provide author']
+    },
+    createdAt: {
+        type: Date,
+        default: DateTime.now().setZone('system')
     }
-}, {timestamps: true})
+})
 
 module.exports = mongoose.model('Message', MessageSchema)

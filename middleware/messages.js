@@ -13,7 +13,7 @@ const messagesMiddleware = async (req, res, next) => {
         const userId = decoded.userId
         const user = await User.findOne({_id: userId})
         const isMember = user.membership
-        if(isMember === 'member') {
+        if(isMember) {
             next()
         } else {
             res.status(StatusCodes.UNAUTHORIZED).json({message: 'You do not have permission to view this page.'})

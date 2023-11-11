@@ -1,0 +1,9 @@
+extends layout 
+
+block content 
+    if id 
+        div #{message}
+        form(action='', method='post')
+            button(type='submit') delete 
+    else 
+        div message not found

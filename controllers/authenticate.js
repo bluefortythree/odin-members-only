@@ -64,6 +64,10 @@ const membership = async(req, res, next) => {
     } else if(isMember === 'member' && membership === 'fester') {
         // throw new Error('You are already a member! Taking you to the home page...')
         res.status(StatusCodes.BAD_REQUEST).json({message: 'You are already a member!'})
+    } else if(isMember !== 'admin' && membership === 'asdfasdf') {
+        const currentUser = await User.findOneAndUpdate({_id: userId}, {membership: 'admin'}, {new: true})
+        console.log(userId, currentUser.email, currentUser.membership)
+        res.redirect('/home')
     } else {
         res.status(StatusCodes.UNAUTHORIZED).json({message: 'Incorrect passcode. Please try again.'})
     }

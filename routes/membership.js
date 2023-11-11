@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {membership} = require('../controllers/authenticate')
 
-router.post('/', membership).get('/', function(req, res, next) {
+router.post('/', membership).get('/', function(req, res) {
     res.render('membership')
   })
 
